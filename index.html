@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Michael J. Wright – Portfolio</title>
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --bg2: #141414;
+    --bg3: #1a1a1a;
+    --card: #1e1e1e;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --accent: #3b82f6;
+    --accent2: #60a5fa;
+    --text: #f0f0f0;
+    --muted: #888;
+    --muted2: #aaa;
+    --green: #22c55e;
+    --purple: #a78bfa;
+    --teal: #2dd4bf;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.6; }
+
+  /* NAV */
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(13,13,13,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; height: 56px; }
+  .nav-logo { font-size: 15px; font-weight: 600; color: var(--accent2); letter-spacing: 0.02em; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--muted2); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero { min-height: 90vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 4rem 2rem; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(59,130,246,0.07) 0%, transparent 70%); }
+  .hero-inner { max-width: 700px; }
+  .hero-badge { display: inline-block; background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25); color: var(--accent2); font-size: 13px; padding: 4px 14px; border-radius: 20px; margin-bottom: 1.5rem; }
+  .hero h1 { font-size: clamp(2.2rem, 6vw, 3.8rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 1.25rem; }
+  .hero h1 span { color: var(--accent2); }
+  .hero p { font-size: 1.1rem; color: var(--muted2); max-width: 560px; margin: 0 auto 2rem; line-height: 1.7; }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--accent); color: #fff; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 500; transition: background 0.2s; }
+  .btn-primary:hover { background: #2563eb; }
+  .btn-secondary { background: transparent; color: var(--text); padding: 10px 24px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 500; border: 1px solid var(--border2); transition: border-color 0.2s; }
+  .btn-secondary:hover { border-color: var(--accent2); }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; max-width: 900px; margin: 0 auto; }
+  .section-label { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+  .section-title { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 3rem; }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .skill-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; }
+  .skill-card h4 { font-size: 13px; font-weight: 600; color: var(--accent2); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--muted2); font-size: 12px; padding: 3px 10px; border-radius: 20px; }
+  .tag.primary { background: rgba(59,130,246,0.12); border-color: rgba(59,130,246,0.25); color: var(--accent2); }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; gap: 20px; }
+  .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem; transition: border-color 0.2s; }
+  .project-card:hover { border-color: var(--border2); }
+  .project-card.featured { border-color: rgba(59,130,246,0.3); background: linear-gradient(135deg, rgba(59,130,246,0.04) 0%, var(--card) 60%); }
+  .project-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 0.75rem; flex-wrap: wrap; }
+  .project-title { font-size: 1.1rem; font-weight: 600; color: var(--text); }
+  .project-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+  .badge { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
+  .badge-major { background: rgba(167,139,250,0.15); border: 1px solid rgba(167,139,250,0.3); color: var(--purple); }
+  .badge-hackathon { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.25); color: var(--green); }
+  .badge-ai { background: rgba(45,212,191,0.12); border: 1px solid rgba(45,212,191,0.25); color: var(--teal); }
+  .project-desc { color: var(--muted2); font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.65; }
+  .project-bullets { list-style: none; margin-bottom: 1.25rem; display: flex; flex-direction: column; gap: 6px; }
+  .project-bullets li { font-size: 0.88rem; color: var(--muted); padding-left: 16px; position: relative; line-height: 1.5; }
+  .project-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
+  .stack-tag { background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--muted2); font-size: 11px; padding: 3px 9px; border-radius: 6px; font-family: 'Courier New', monospace; }
+  .project-link { display: inline-flex; align-items: center; gap: 6px; color: var(--accent2); font-size: 13px; text-decoration: none; font-weight: 500; }
+  .project-link:hover { text-decoration: underline; }
+
+  /* JAVA SECTION */
+  .java-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .java-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; }
+  .java-card h4 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .java-card p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .java-card .course { font-size: 11px; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+
+  /* EXPERIENCE */
+  .exp-list { display: flex; flex-direction: column; gap: 24px; }
+  .exp-item { display: grid; grid-template-columns: 140px 1fr; gap: 1.5rem; }
+  .exp-date { font-size: 12px; color: var(--muted); padding-top: 3px; line-height: 1.5; }
+  .exp-content h4 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+  .exp-content .role { font-size: 13px; color: var(--accent2); margin-bottom: 8px; }
+  .exp-content p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .contact-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; text-decoration: none; color: var(--text); transition: border-color 0.2s; display: flex; align-items: center; gap: 12px; }
+  .contact-card:hover { border-color: var(--accent2); }
+  .contact-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(59,130,246,0.12); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .contact-info small { display: block; font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+  .contact-info span { font-size: 13px; font-weight: 500; }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--muted); font-size: 13px; }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+  @media (max-width: 600px) {
+    .exp-item { grid-template-columns: 1fr; gap: 4px; }
+    .exp-date { padding-top: 0; }
+    nav { padding: 0 1rem; }
+    .nav-links { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">MJW</span>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Available for Internships & Junior Roles</div>
+    <h1>Michael J. <span>Wright</span></h1>
+    <p>Final-year BSc. in Computing student at UTech, Jamaica. I build real software from interpreted programming languages to multiplayer simulations and mobile safety apps.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="https://github.com/AlkalinemaxPHP" target="_blank" class="btn-secondary">GitHub Profile</a>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">Work</p>
+  <h2 class="section-title">Projects</h2>
+  <div class="projects-grid">
+
+    <!-- NextPhase -->
+    <div class="project-card featured">
+      <div class="project-header">
+        <span class="project-title">NextPhase – Digital Transformation Simulation</span>
+        <div class="project-badges">
+          <span class="badge badge-major">Major Project</span>
+          <span class="badge badge-ai">Research Artifact</span>
+        </div>
+      </div>
+      <p class="project-desc">A real-time multiplayer educational simulation where players take corporate executive roles and navigate a 4-phase digital transformation journey. Built as the primary artifact in a Design-Based Research (DBR) study.</p>
+      <ul class="project-bullets">
+        <li>5,000+ line game engine with 13+ branching decisions and 15 KPI metrics</li>
+        <li>Real-time multiplayer via Firebase for up to 30 concurrent players</li>
+        <li>Randomised crisis engine ransomware, PR scandals, market crashes</li>
+        <li>Role-based secret intel system across 5 executive characters</li>
+        <li>Admin dashboard, Firebase Auth, Firestore game history archival</li>
+      </ul>
+      <div class="project-stack">
+        <span class="stack-tag">JavaScript ES6+</span>
+        <span class="stack-tag">HTML5 / CSS3</span>
+        <span class="stack-tag">Firebase Realtime DB</span>
+        <span class="stack-tag">Firebase Auth</span>
+        <span class="stack-tag">Firestore</span>
+      </div>
+    </div>
+
+    <!-- APL -->
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-title">APL – Another Programming Language</span>
+        <div class="project-badges">
+          <span class="badge badge-ai">AI-Powered</span>
+        </div>
+      </div>
+      <p class="project-desc">A fully interpreted programming language built from scratch complete with a custom lexer, LALR parser, AST execution engine, and a GUI IDE with integrated AI code analysis.</p>
+      <ul class="project-bullets">
+        <li>Custom lexer and LALR parser using Python PLY</li>
+        <li>Tkinter GUI IDE with code editor, AST inspector and token viewer</li>
+        <li>OpenAI GPT-3.5 integration for live bug detection and output prediction</li>
+        <li>Full language features: variables, loops, conditionals, exception handling, REPL</li>
+      </ul>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">PLY</span>
+        <span class="stack-tag">Tkinter</span>
+        <span class="stack-tag">OpenAI API</span>
+      </div>
+      <a href="https://github.com/AlkalinemaxPHP/APL-v1.0---final" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+
+    <!-- PathFinding -->
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-title">Jamaican Rural Road Network Path-Finder</span>
+        <div class="project-badges">
+          <span class="badge badge-ai">AI / Algorithms</span>
+        </div>
+      </div>
+      <p class="project-desc">An AI coursework project modelling Jamaica's rural road network as a weighted graph, with four path-finding algorithms implemented in Prolog and a Python GUI frontend.</p>
+      <ul class="project-bullets">
+        <li>Dijkstra, A*, BFS, DFS all implemented in Prolog via SWI-Prolog</li>
+        <li>Constraint system: avoid unpaved, closed roads, or hazards</li>
+        <li>Clean 3-layer architecture: GUI → Logic → Prolog Bridge</li>
+        <li>Password-protected admin panel for dynamic road management</li>
+      </ul>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Prolog</span>
+        <span class="stack-tag">PySwip</span>
+        <span class="stack-tag">Tkinter</span>
+      </div>
+      <a href="https://github.com/AlkalinemaxPHP/AIprojectcopy4" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+
+    <!-- SafeZone -->
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-title">SafeZone – Community Safety App</span>
+        <div class="project-badges">
+          <span class="badge badge-hackathon">Hackathon MVP</span>
+        </div>
+      </div>
+      <p class="project-desc">A React Native mobile app connecting Jamaican communities to emergency services, real-time location-based alerts, and a live safety map of reported incidents.</p>
+      <ul class="project-bullets">
+        <li>One-tap emergency contact Police, Ambulance, Fire</li>
+        <li>Community incident reporting with live safety map</li>
+        <li>Push notifications via Expo Notifications</li>
+        <li>Built as a hackathon MVP with full working prototype</li>
+      </ul>
+      <div class="project-stack">
+        <span class="stack-tag">React Native</span>
+        <span class="stack-tag">JavaScript</span>
+        <span class="stack-tag">Expo</span>
+        <span class="stack-tag">React Native Maps</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- JAVA COURSEWORK -->
+<section id="java">
+  <p class="section-label">Core Language</p>
+  <h2 class="section-title">Java Coursework</h2>
+  <p style="color: var(--muted2); margin-bottom: 2rem; font-size: 0.95rem;">Java is my primary language, used extensively across Data Structures, OOP, and Algorithm Analysis modules at UTech.</p>
+  <div class="java-grid">
+    <div class="java-card">
+      <div class="course">Data Structures</div>
+      <h4>Linear & Non-Linear Structures</h4>
+      <p>Implemented queues, stacks, linked lists, and trees in Java. Applied each structure to solve real computational problems with focus on efficiency and memory management.</p>
+    </div>
+    <div class="java-card">
+      <div class="course">Object-Oriented Programming</div>
+      <h4>OOP Systems in Java</h4>
+      <p>Designed and built multi-class Java systems applying inheritance, polymorphism, encapsulation, and abstraction. Produced clean, maintainable object-oriented codebases.</p>
+    </div>
+    <div class="java-card">
+      <div class="course">Analysis of Algorithms</div>
+      <h4>Pathfinding & Routing in Java</h4>
+      <p>Implemented roadmap and distance pathfinding algorithms in Java including Dijkstra's algorithm, analysing time and space complexity across multiple approaches.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">Toolkit</p>
+  <h2 class="section-title">Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h4>Languages</h4>
+      <div class="skill-tags">
+        <span class="tag primary">Java</span>
+        <span class="tag primary">C++</span>
+        <span class="tag primary">Python</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">PHP</span>
+        <span class="tag">SQL</span>
+        <span class="tag">HTML5</span>
+        <span class="tag">CSS3</span>
+        <span class="tag">Prolog</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h4>Frameworks & Tools</h4>
+      <div class="skill-tags">
+        <span class="tag">React Native</span>
+        <span class="tag">Expo</span>
+        <span class="tag">Firebase</span>
+        <span class="tag">PLY</span>
+        <span class="tag">Tkinter</span>
+        <span class="tag">OpenAI API</span>
+        <span class="tag">Git</span>
+        <span class="tag">GitHub</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h4>Concepts</h4>
+      <div class="skill-tags">
+        <span class="tag">OOP</span>
+        <span class="tag">Data Structures</span>
+        <span class="tag">Algorithms</span>
+        <span class="tag">Real-Time Systems</span>
+        <span class="tag">LALR Parsing</span>
+        <span class="tag">REST APIs</span>
+        <span class="tag">DBR Methodology</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h4>Databases</h4>
+      <div class="skill-tags">
+        <span class="tag">Firebase Firestore</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">MS Access</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label">Background</p>
+  <h2 class="section-title">Experience</h2>
+  <div class="exp-list">
+    <div class="exp-item">
+      <span class="exp-date">Dec 2023 – Present</span>
+      <div class="exp-content">
+        <h4>Supreme Ventures Racing & Entertainment Ltd.</h4>
+        <div class="role">Chart Caller / Photo Finish Operator / Assistant Judge</div>
+        <p>Configure and monitor GPS tracking systems at live race events. Provide on-site technical troubleshooting and maintain official race results on the company website.</p>
+      </div>
+    </div>
+    <div class="exp-item">
+      <span class="exp-date">Jul–Aug 2023<br>Jun–Aug 2024</span>
+      <div class="exp-content">
+        <h4>Ministry of Economic Growth & Job Creation</h4>
+        <div class="role">ICT Assistant (Internship)</div>
+        <p>Assisted with network configuration, hardware maintenance, and end-user technical support across government departments.</p>
+      </div>
+    </div>
+    <div class="exp-item">
+      <span class="exp-date">Jun–Aug 2022</span>
+      <div class="exp-content">
+        <h4>National Housing Trust</h4>
+        <div class="role">Accounting Clerk Assistant – Loan Management (Internship)</div>
+        <p>Managed file and letter tracking systems, processed loan files, and supported compliance and administrative operations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Get in Touch</p>
+  <h2 class="section-title">Contact</h2>
+  <div class="contact-grid">
+    <a href="mailto:Wright.jeremiah78@gmail.com" class="contact-card">
+      <div class="contact-icon">✉</div>
+      <div class="contact-info">
+        <small>Email</small>
+        <span>Wright.jeremiah78@gmail.com</span>
+      </div>
+    </a>
+    <a href="https://github.com/AlkalinemaxPHP" target="_blank" class="contact-card">
+      <div class="contact-icon">⌥</div>
+      <div class="contact-info">
+        <small>GitHub</small>
+        <span>AlkalinemaxPHP</span>
+      </div>
+    </a>
+    <div class="contact-card">
+      <div class="contact-icon">📞</div>
+      <div class="contact-info">
+        <small>Phone</small>
+        <span>876-784-3529</span>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">📍</div>
+      <div class="contact-info">
+        <small>Location</small>
+        <span>St. Catherine, Jamaica</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Michael J. Wright · B.Sc. Computing & Technology · University of Technology, Jamaica</p>
+</footer>
+
+</body>
+</html>
